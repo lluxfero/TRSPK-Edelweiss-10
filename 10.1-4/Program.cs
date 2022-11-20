@@ -1,4 +1,45 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+NumberArray numberArray = new(10);
+
+// Добавление в делегат функции BubbleSort
+SortDelegate delegates = SortBubble;
+
+#region Демонстрация функционала
+
+// Копирование массива
+int[] newArr = numberArray.Copy();
+
+// Вывод изначального состояния
+Console.Write("Изначальный массив: ");
+for (int i = 0; i < numberArray.Amount; i++)
+{
+    Console.Write($"{numberArray[i]} ");
+}
+Console.WriteLine();
+
+// Сортировка через делегат 
+numberArray.Sort(delegates);
+
+Console.Write("Отсортированный массив: ");
+
+// Вывод после сортировки
+for (int i = 0; i < numberArray.Amount; i++)
+{
+    Console.Write($"{numberArray[i]} ");
+}
+Console.WriteLine();
+
+// Вывод скопированного массива
+Console.Write("Скопированный массив: ");
+for (int i = 0; i < newArr.Length; i++)
+{
+    Console.Write($"{newArr[i]} ");
+}
+#endregion
+
+
+
 void SortBubble(NumberArray numbers) // сортировка пузырьком
 {
     int i, j, temp;
@@ -12,6 +53,7 @@ void SortBubble(NumberArray numbers) // сортировка пузырьком
                 numbers[j + 1] = temp;
             }
         }
+    Console.WriteLine("Bubble\n");
 }
 
 void SortInsert(NumberArray numbers) // сортировка вставками
@@ -26,6 +68,7 @@ void SortInsert(NumberArray numbers) // сортировка вставками
             numbers[j] = numbers[j - 1];
             numbers[j - 1] = temp;
         }
+    Console.WriteLine("Insert\n");
 }
 
 void SortShell(NumberArray numbers) // сортировка Шелла
@@ -55,9 +98,10 @@ void SortShell(NumberArray numbers) // сортировка Шелла
             }
         }
     }
+    Console.WriteLine("Shell\n");
 }
 
-delegate void SortDelegate(NumberArray numbers); // делегат, который совпадает по сигнатуре с сортировками
+public delegate void SortDelegate(NumberArray numbers); // делегат, который совпадает по сигнатуре с сортировками
 
 public class NumberArray
 {
