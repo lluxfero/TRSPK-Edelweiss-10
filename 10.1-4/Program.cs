@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Diagnostics;
+
 NumberArray numberArray = new(10);
 
 // Добавление в делегат функции BubbleSort
@@ -36,13 +38,55 @@ for (int i = 0; i < newArr.Length; i++)
 {
     Console.Write($"{newArr[i]} ");
 }
+Console.WriteLine();
 #endregion
 
+//номер 10.4
+SortDelegate delegateBubble = SortBubble;
+SortDelegate delegateInsert = SortInsert;
+SortDelegate delegateShell = SortShell;
+
+NumberArray arr = new(25);
+string? key = "";
+while (true)
+{
+    Console.Write(Menu.WriteMenu());
+    Console.Write("Введите значение: ");
+    key = Console.ReadLine();
+    switch (key)
+    {
+        case "1":
+            Console.Write($"\nИзначальный массив: {arr}");
+            NumberArray arrCopy = arr.Copy2();
+            arrCopy.Sort(delegateBubble);
+            Console.Write($"Отсортированный массив: {arrCopy}");
+            break;
+
+        case "2":
+            Console.Write($"\nИзначальный массив: {arr}");
+            arrCopy = arr.Copy2();
+            arrCopy.Sort(delegateInsert);
+            Console.Write($"Отсортированный массив: {arrCopy}");
+            break;
+
+        case "3":
+            Console.Write($"\nИзначальный массив: {arr}");
+            arrCopy = arr.Copy2();
+            arrCopy.Sort(delegateShell);
+            Console.Write($"Отсортированный массив: {arrCopy}");
+            break;
+
+        default:
+            return 0;
+    }
+}
 
 
 void SortBubble(NumberArray numbers) // сортировка пузырьком
 {
     int i, j, temp;
+    Stopwatch time = new Stopwatch();
+    time.Start();
     for (i = numbers.Amount - 1; i > 0; i--)
         for (j = 0; j < i; j++)
         {
@@ -53,12 +97,15 @@ void SortBubble(NumberArray numbers) // сортировка пузырьком
                 numbers[j + 1] = temp;
             }
         }
-    Console.WriteLine("Bubble\n");
+    time.Stop();
+    Console.WriteLine($"Сортировка заняла {time.Elapsed.TotalMilliseconds} миллисекунд");
 }
 
 void SortInsert(NumberArray numbers) // сортировка вставками
 {
     int i, j, temp;
+    Stopwatch time = new Stopwatch();
+    time.Start();
     for (i = 1; i < numbers.Amount; i++)
         for (j = i; j > 0; j--)
         {
@@ -68,13 +115,16 @@ void SortInsert(NumberArray numbers) // сортировка вставками
             numbers[j] = numbers[j - 1];
             numbers[j - 1] = temp;
         }
-    Console.WriteLine("Insert\n");
+    time.Stop();
+    Console.WriteLine($"Сортировка заняла {time.Elapsed.TotalMilliseconds} миллисекунд");
 }
 
 void SortShell(NumberArray numbers) // сортировка Шелла
 {
     int i, step, temp, cur, k = 1, c;
     int len = numbers.Amount;
+    Stopwatch time = new Stopwatch();
+    time.Start();
     while (len / Math.Pow(2, k) >= 2)
         k++;
     for (i = 1; i <= k; i++)
@@ -98,7 +148,8 @@ void SortShell(NumberArray numbers) // сортировка Шелла
             }
         }
     }
-    Console.WriteLine("Shell\n");
+    time.Stop();
+    Console.WriteLine($"Сортировка заняла {time.Elapsed.TotalMilliseconds} миллисекунд");
 }
 
 public delegate void SortDelegate(NumberArray numbers); // делегат, который совпадает по сигнатуре с сортировками
@@ -158,6 +209,35 @@ public class NumberArray
         }
         return array;
     }
+
+    public NumberArray Copy2()
+    {
+        NumberArray array = new(_array.Length);
+        for (int i = 0; i < _array.Length; i++)
+        {
+            array[i] = _array[i];
+        }
+        return array;
+    }
+
+    public override string ToString()
+    {
+        string s = "";
+        for (int i = 0; i < Amount; i++)
+        {
+            s = string.Concat(s, $"{_array[i]} ");
+        }
+        s = string.Concat(s, "\n");
+        return s;
+    }
 }
 
+static class Menu
+{
+    public static string WriteMenu()
+    {
+        return "\n===== MENU =====\n1. SortBubble\n2. SortInsert\n" +
+               "3. SortShell\nPress another key to exit\n";
+    }
+}
 
