@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-void SortBubble(NumberArray numbers)
+void SortBubble(NumberArray numbers) // сортировка пузырьком
 {
     int i, j, temp;
     for (i = numbers.array.Length - 1; i > 0; i--)
@@ -14,7 +14,7 @@ void SortBubble(NumberArray numbers)
         }
 }
 
-void SortInsert(NumberArray numbers)
+void SortInsert(NumberArray numbers) // сортировка вставками
 {
     int i, j, temp;
     for (i = 1; i < numbers.array.Length; i++)
@@ -28,7 +28,7 @@ void SortInsert(NumberArray numbers)
         }
 }
 
-void SortShell(NumberArray numbers)
+void SortShell(NumberArray numbers) // сортировка Шелла
 {
     int i, step, temp, cur, k = 1, c;
     int len = numbers.array.Length;
@@ -56,7 +56,7 @@ void SortShell(NumberArray numbers)
         }
     }
 }
-class NumberArray
+class NumberArray // класс, который должен быть объявлён у Лизы
 {
     public int[] array;
     public NumberArray(int[] array)
@@ -66,4 +66,4 @@ class NumberArray
 }
 
 
-delegate void SortDelegate(NumberArray numbers);
+delegate void SortDelegate(NumberArray numbers); // делегат, который совпадает по сигнатуре с сортировками
