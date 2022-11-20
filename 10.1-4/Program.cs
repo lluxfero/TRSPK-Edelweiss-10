@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 NumberArray numberArray = new(10);
 
@@ -10,35 +8,19 @@ SortDelegate delegates = SortBubble;
 #region Демонстрация функционала
 
 // Копирование массива
-int[] newArr = numberArray.Copy();
+NumberArray newArr = numberArray.Copy();
 
 // Вывод изначального состояния
-Console.Write("Изначальный массив: ");
-for (int i = 0; i < numberArray.Amount; i++)
-{
-    Console.Write($"{numberArray[i]} ");
-}
-Console.WriteLine();
+Console.Write($"Изначальный массив: {numberArray}");
 
 // Сортировка через делегат 
 numberArray.Sort(delegates);
 
-Console.Write("Отсортированный массив: ");
-
 // Вывод после сортировки
-for (int i = 0; i < numberArray.Amount; i++)
-{
-    Console.Write($"{numberArray[i]} ");
-}
-Console.WriteLine();
+Console.Write($"Отсортированный массив: {numberArray}");
 
 // Вывод скопированного массива
-Console.Write("Скопированный массив: ");
-for (int i = 0; i < newArr.Length; i++)
-{
-    Console.Write($"{newArr[i]} ");
-}
-Console.WriteLine();
+Console.WriteLine($"Скопированный массив: {newArr}");
 #endregion
 
 //номер 10.4
@@ -57,21 +39,21 @@ while (true)
     {
         case "1":
             Console.Write($"\nИзначальный массив: {arr}");
-            NumberArray arrCopy = arr.Copy2();
+            NumberArray arrCopy = arr.Copy();
             arrCopy.Sort(delegateBubble);
             Console.Write($"Отсортированный массив: {arrCopy}");
             break;
 
         case "2":
             Console.Write($"\nИзначальный массив: {arr}");
-            arrCopy = arr.Copy2();
+            arrCopy = arr.Copy();
             arrCopy.Sort(delegateInsert);
             Console.Write($"Отсортированный массив: {arrCopy}");
             break;
 
         case "3":
             Console.Write($"\nИзначальный массив: {arr}");
-            arrCopy = arr.Copy2();
+            arrCopy = arr.Copy();
             arrCopy.Sort(delegateShell);
             Console.Write($"Отсортированный массив: {arrCopy}");
             break;
@@ -199,10 +181,10 @@ public class NumberArray
         }
     }
 
-    // Метод копирования(по значению)
-    public int[] Copy()
+    // Метод копирования
+    public NumberArray Copy()
     {
-        int[] array = new int[_array.Length];
+        NumberArray array = new(_array.Length);
         for (int i = 0; i < _array.Length; i++)
         {
             array[i] = _array[i];
