@@ -38,21 +38,21 @@ while (true)
     switch (key)
     {
         case "1":
-            Console.Write($"\nИзначальный массив: {arr}");
+            Console.Write($"\n--Sort Bubble--\nИзначальный массив: {arr}");
             NumberArray arrCopy = arr.Copy();
             arrCopy.Sort(delegateBubble);
             Console.Write($"Отсортированный массив: {arrCopy}");
             break;
 
         case "2":
-            Console.Write($"\nИзначальный массив: {arr}");
+            Console.Write($"\n--Sort Insert--\nИзначальный массив: {arr}");
             arrCopy = arr.Copy();
             arrCopy.Sort(delegateInsert);
             Console.Write($"Отсортированный массив: {arrCopy}");
             break;
 
         case "3":
-            Console.Write($"\nИзначальный массив: {arr}");
+            Console.Write($"\n--Sort Shell--\nИзначальный массив: {arr}");
             arrCopy = arr.Copy();
             arrCopy.Sort(delegateShell);
             Console.Write($"Отсортированный массив: {arrCopy}");
