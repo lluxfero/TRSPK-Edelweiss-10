@@ -29,13 +29,9 @@ SortDelegate delegateInsert = SortInsert;
 SortDelegate delegateShell = SortShell;
 
 NumberArray arr = new(25);
-string? key = "";
 while (true)
 {
-    Console.Write(Menu.WriteMenu());
-    Console.Write("Введите значение: ");
-    key = Console.ReadLine();
-    switch (key)
+    switch (Menu())
     {
         case "1":
             Console.Write($"\n--Sort Bubble--\nИзначальный массив: {arr}");
@@ -134,6 +130,16 @@ void SortShell(NumberArray numbers) // сортировка Шелла
     Console.WriteLine($"Сортировка заняла {time.Elapsed.TotalMilliseconds} миллисекунд");
 }
 
+string Menu()
+{
+    Console.Write("\n===== MENU =====\n1. SortBubble\n2. SortInsert\n" +
+           "3. SortShell\nPress another key to exit\n");
+    Console.Write("Введите значение: ");
+    string? key = Console.ReadLine();
+    return key;
+}
+
+
 public delegate void SortDelegate(NumberArray numbers); // делегат, который совпадает по сигнатуре с сортировками
 
 public class NumberArray
@@ -214,12 +220,4 @@ public class NumberArray
     }
 }
 
-static class Menu
-{
-    public static string WriteMenu()
-    {
-        return "\n===== MENU =====\n1. SortBubble\n2. SortInsert\n" +
-               "3. SortShell\nPress another key to exit\n";
-    }
-}
 
